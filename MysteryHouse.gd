@@ -170,11 +170,14 @@ func _on_Cancel_pressed():
 
 func _on_Submit_pressed():
 	if solveState == 0:
-		solve_body()
+		if (!solve_body()):
+			return
 	elif solveState == 1:
-		solve_killer()
+		if !solve_killer():
+			return
 	elif solveState == 2:
-		solve_weapon()
+		if !solve_weapon():
+			return
 	
 	if solveState == 3:
 		end_game()
@@ -202,6 +205,7 @@ func solve_body():
 			bodyGuess = int(button.name.substr(9, button.name.length() - 9))
 	if bodyGuess >= 0:
 		solveState += 1
+	return bodyGuess >= 0;
 
 func solve_killer():
 	killerGuess = -1
@@ -211,6 +215,7 @@ func solve_killer():
 			killerGuess = int(button.name.substr(10, button.name.length() - 10))
 	if killerGuess >= 0:
 		solveState += 1
+	return killerGuess >= 0;
 
 func solve_weapon():
 	weaponGuess = -1
@@ -220,6 +225,7 @@ func solve_weapon():
 			weaponGuess = int(button.name.substr(9, button.name.length() - 9))
 	if weaponGuess >= 0:
 		solveState += 1
+	return weaponGuess >= 0;
 
 func end_game():
 	var solveText = ""
