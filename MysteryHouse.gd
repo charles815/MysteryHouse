@@ -132,19 +132,19 @@ func _on_Solve_pressed():
 	$Solver.show()
 
 func setup_body_selection():
-	$Solver/MainText.text = "Who was killed?"
+	$Solver/MainText.text = gameData.questionBody
 	for i in range(0, peopleData.size()):
 		var location = Vector2((i % 3) * 320 + 50, (i / 3) * 75 + 50)
 		create_button(location, "personId_" + str(i), peopleData[i])
 
 func setup_killer_selection():
-	$Solver/MainText.text = "Who was the killer?"
+	$Solver/MainText.text = gameData.questionKiller
 	for i in range(0, peopleData.size()):
 		var location = Vector2((i % 3) * 320 + 50, (i / 3) * 75 + 50)
 		create_button(location, "suspectId_" + str(i), peopleData[i])
 
 func setup_weapon_selection():
-	$Solver/MainText.text = "What weapon was used?"
+	$Solver/MainText.text = gameData.questionWeapon
 	for i in range(0, weaponData.size()):
 		var location = Vector2((i % 3) * 320 + 50, (i / 3) * 75 + 50)
 		create_button(location, "weaponId_" + str(i), weaponData[i])
@@ -267,7 +267,7 @@ func get_searchables():
 	# body
 	if currentRoom.bodyId >= 0:
 		var person = peopleData[currentRoom.bodyId]
-		searchables.append(person + "'s body")
+		searchables.append(gameData.findBodyText % person)
 	
 	return array_to_stringList(searchables)
 
